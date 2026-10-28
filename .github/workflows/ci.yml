@@ -93,3 +93,8 @@ jobs:
             exit 1
           fi
           echo "No CRITICAL/HIGH vulnerabilities found"
+
+      # Push Docker image sur Docker Hub
+      - name: Push Docker image
+        if: always()
+        run: docker push $DOCKER_IMAGE_NAME
