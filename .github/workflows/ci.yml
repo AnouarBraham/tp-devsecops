@@ -73,6 +73,23 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: democyber:latest
-          format: 'table'
-          exit-code: '1'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          exit-code: '0'
           severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-results.sarif
+
+      - name: Fail if Trivy found vulnerabilities
+        if: always()
+        run: |
+          if [ -s trivy-results.sarif ] && grep -q '"ruleId"' trivy-results.sarif; then
+            echo "Trivy found CRITICAL/HIGH vulnerabilities — failing the job"
+            exit 1
+          fi
+          echo "No CRITICAL/HIGH vulnerabilities found"
