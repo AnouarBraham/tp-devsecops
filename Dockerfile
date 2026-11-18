@@ -6,7 +6,7 @@ COPY src ./src
 RUN mvn -B package -DskipTests
 
 FROM eclipse-temurin:17-jre-alpine
-RUN apk upgrade --no-cache          # ← patch OS packages to latest
+RUN apk upgrade --no-cache
 WORKDIR /app
 COPY --from=build /app/target/democyber-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080

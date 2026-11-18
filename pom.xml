@@ -22,6 +22,12 @@
 
     <properties>
         <java.version>17</java.version>
+
+        <!-- NUCLEAR FIX: force exact patched versions of every vulnerable dep -->
+        <tomcat.version>10.1.59</tomcat.version>
+        <spring-framework.version>6.2.19</spring-framework.version>
+        <jackson-bom.version>2.21.7</jackson-bom.version>
+        <micrometer.version>1.15.12</micrometer.version>
     </properties>
 
     <dependencies>
